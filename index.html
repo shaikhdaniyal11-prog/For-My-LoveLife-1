@@ -152,7 +152,7 @@ button {
 <!-- AUDIO -->
 <audio id="bgMusic" loop src="https://cdn.pixabay.com/audio/2022/03/15/audio_4f9c1b0c91.mp3"></audio>
 <audio id="celebrateMusic" loop src="https://cdn.pixabay.com/audio/2022/10/30/audio_946b92a3c3.mp3"></audio>
-<audio id="heartbeat" src="https://cdn.pixabay.com/audio/2022/03/15/audio_0c2d7c3c8a.mp3"></audio>
+<audio id="heartbeat" src="https://pixabay.com/sound-effects/people-real-heartbeat-sound-17663/"></audio>
 <audio id="kissSound" src="https://cdn.pixabay.com/audio/2022/02/23/audio_7c8c94a8de.mp3"></audio>
 <audio id="nameWhisper" src="https://cdn.pixabay.com/audio/2022/11/16/audio_0fbc0b6e78.mp3"></audio>
 <audio id="whisper" src="https://cdn.pixabay.com/audio/2022/11/16/audio_9a63c0b03a.mp3"></audio>
@@ -176,7 +176,7 @@ const heartbeat=document.getElementById("heartbeat");
 const bgMusic=document.getElementById("bgMusic");
 const celebrateMusic=document.getElementById("celebrateMusic");
 
-bgMusic.volume=.4;
+bgMusic.volume=.3;
 celebrateMusic.volume=.6;
 heartbeat.volume=.5;
 
@@ -249,8 +249,8 @@ document.getElementById("yesBtn").onclick=()=>{
     const g=document.createElement("img");
     g.src=gifs[Math.floor(Math.random()*gifs.length)];
     g.className="gif";
-    g.style.left=Math.random()*90+"vw";
-    g.style.top=Math.random()*90+"vh";
+    g.style.left=Math.random()*45+"vw";
+    g.style.top=Math.random()*30+"vh";
     cel.appendChild(g);
   }
 
