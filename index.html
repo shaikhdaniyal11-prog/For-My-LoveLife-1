@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Valentine 💘</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Rubik+Spray+Paint&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; user-select:none; }
+
+body {
+  height:100vh;
+  overflow:hidden;
+  background:linear-gradient(135deg,#ff4d6d,#c77dff,#ff758f);
+  background-size:400% 400%;
+  animation:bgShift 10s infinite alternate;
+  font-family:'Pacifico',cursive;
+}
+
+@keyframes bgShift {
+  0%{background-position:0% 50%}
+  100%{background-position:100% 50%}
+}
+
+/* Floating Hearts */
+.heart {
+  position:absolute;
+  font-size:24px;
+  animation:floatUp linear infinite;
+}
+@keyframes floatUp {
+  0%{transform:translateY(100vh) scale(.5);opacity:0}
+  100%{transform:translateY(-10vh) scale(1.2);opacity:1}
+}
+
+/* Center */
+.container {
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px;
+  z-index:5;
+}
+
+h1 {
+  font-family:'Rubik Spray Paint',cursive;
+  font-size:2.8rem;
+  color:white;
+  text-shadow:0 0 20px hotpink,0 0 40px red;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+}
+
+.buttons {
+  margin-top:40px;
+  display:flex;
+  gap:20px;
+}
+
+button {
+  padding:18px 36px;
+  font-size:1.4rem;
+  border:none;
+  border-radius:50px;
+  cursor:pointer;
+}
+
+#yesBtn {
+  background:linear-gradient(45deg,#ff006e,#ffbe0b);
+  color:white;
+  box-shadow:0 0 20px rgba(255,0,100,.7);
+}
+#yesBtn:hover{transform:scale(1.1)}
+
+#noBtn {
+  background:#222;
+  color:white;
+  position:relative;
+}
+
+/* Celebration */
+#celebration {
+  display:none;
+  position:absolute;
+  inset:0;
+  z-index:10;
+  background:rgba(0,0,0,.35);
+}
+
+.celebrate-text {
+  position:absolute;
+  top:35%;
+  width:100%;
+  text-align:center;
+  font-size:3rem;
+  color:white;
+  text-shadow:0 0 30px hotpink;
+  font-family:'Rubik Spray Paint',cursive;
+}
+
+.gif {
+  position:absolute;
+  width:120px;
+  animation:pop 1s ease forwards;
+}
+
+@keyframes pop {
+  from{transform:scale(0)}
+  to{transform:scale(1)}
+}
+
+.confetti {
+  position:absolute;
+  width:8px;
+  height:8px;
+  animation:fall 3s linear infinite;
+}
+@keyframes fall {
+  from{transform:translateY(-10vh) rotate(0)}
+  to{transform:translateY(110vh) rotate(360deg)}
+}
+
+#screenshotMsg {
+  position:absolute;
+  bottom:10%;
+  width:100%;
+  text-align:center;
+  font-size:1.5rem;
+  color:white;
+  opacity:0;
+  animation:fadeIn 2s ease forwards;
+  animation-delay:4s;
+  text-shadow:0 0 15px hotpink;
+}
+@keyframes fadeIn { to{opacity:1} }
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO -->
+<audio id="bgMusic" loop src="https://cdn.pixabay.com/audio/2022/03/15/audio_4f9c1b0c91.mp3"></audio>
+<audio id="celebrateMusic" loop src="https://cdn.pixabay.com/audio/2022/10/30/audio_946b92a3c3.mp3"></audio>
+<audio id="heartbeat" src="https://cdn.pixabay.com/audio/2022/03/15/audio_0c2d7c3c8a.mp3"></audio>
+<audio id="kissSound" src="https://cdn.pixabay.com/audio/2022/02/23/audio_7c8c94a8de.mp3"></audio>
+<audio id="nameWhisper" src="https://cdn.pixabay.com/audio/2022/11/16/audio_0fbc0b6e78.mp3"></audio>
+<audio id="whisper" src="https://cdn.pixabay.com/audio/2022/11/16/audio_9a63c0b03a.mp3"></audio>
+
+<div class="container" id="question">
+  <h1>Mrs Daniyal,<br>WILL YOU BE MY VALENTINE?</h1>
+  <div class="buttons">
+    <button id="yesBtn">YES 💖</button>
+    <button id="noBtn">NO 😜</button>
+  </div>
+</div>
+
+<div id="celebration">
+  <div class="celebrate-text">You don't have any other options.. you are stuck with me now my babes😜💘🔥</div>
+  <div id="screenshotMsg">Screenshot this moment 💕</div>
+</div>
+
+<script>
+const hearts=["❤️","💖","💘","💝","💕","💞","💓"];
+const heartbeat=document.getElementById("heartbeat");
+const bgMusic=document.getElementById("bgMusic");
+const celebrateMusic=document.getElementById("celebrateMusic");
+
+bgMusic.volume=.4;
+celebrateMusic.volume=.6;
+heartbeat.volume=.5;
+
+/* Hearts */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText=hearts[Math.floor(Math.random()*hearts.length)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=3+Math.random()*5+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
+},200);
+
+/* NO escape */
+const noBtn=document.getElementById("noBtn");
+function moveNo(){
+  noBtn.style.position="absolute";
+  noBtn.style.left=Math.random()*(innerWidth-100)+"px";
+  noBtn.style.top=Math.random()*(innerHeight-100)+"px";
+}
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("touchstart",moveNo);
+
+/* Heartbeat speed-up */
+let heartbeatSpeed=2000, hbInterval;
+function startHeartbeat(){
+  hbInterval=setInterval(()=>{
+    heartbeat.currentTime=0;
+    heartbeat.play().catch(()=>{});
+    if(navigator.vibrate) navigator.vibrate(60);
+    if(heartbeatSpeed>900){
+      heartbeatSpeed-=80;
+      clearInterval(hbInterval);
+      startHeartbeat();
+    }
+  },heartbeatSpeed);
+}
+startHeartbeat();
+
+/* Start music on interaction */
+function startMusic(){
+  bgMusic.play().catch(()=>{});
+  document.removeEventListener("click",startMusic);
+  document.removeEventListener("touchstart",startMusic);
+}
+document.addEventListener("click",startMusic);
+document.addEventListener("touchstart",startMusic);
+
+/* YES */
+document.getElementById("yesBtn").onclick=()=>{
+  clearInterval(hbInterval);
+  heartbeat.pause();
+
+  document.getElementById("kissSound").play().catch(()=>{});
+  bgMusic.pause();
+  celebrateMusic.play().catch(()=>{});
+
+  document.getElementById("question").style.display="none";
+  const cel=document.getElementById("celebration");
+  cel.style.display="block";
+
+  const gifs=[
+    "https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif",
+    "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif",
+    "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
+  ];
+
+  for(let i=0;i<10;i++){
+    const g=document.createElement("img");
+    g.src=gifs[Math.floor(Math.random()*gifs.length)];
+    g.className="gif";
+    g.style.left=Math.random()*90+"vw";
+    g.style.top=Math.random()*90+"vh";
+    cel.appendChild(g);
+  }
+
+  for(let i=0;i<120;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},100%,70%)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
+  }
+
+  setTimeout(()=>{
+    document.getElementById("nameWhisper").volume=.35;
+    document.getElementById("nameWhisper").play().catch(()=>{});
+  },700);
+
+  setTimeout(()=>{
+    document.getElementById("whisper").volume=.35;
+    document.getElementById("whisper").play().catch(()=>{});
+  },1500);
+};
+</script>
+
+</body>
+</html>
